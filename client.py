@@ -1,8 +1,13 @@
 import socket
 import threading
+from datetime import datetime as dt
 
 
-nickname = input("Choose your nickname: ")
+def timestamp():
+    return f'[{dt.now().strftime("%H:%M")}]'
+
+
+nickname = input(f' {timestamp()} ::SERVER:: Enter nickname: ')
 
 host = '127.0.0.1'
 port = 7976
@@ -21,14 +26,14 @@ def receive():
                 print(message)
         except:
             # wrong host or port
-            print("An error occured!")
+            print(f' {timestamp()} ::SERVER:: Host and/or port was incorrect.')
             client.close()
             break
 
 
 def write():
     while True:
-        message = '{}: {}'.format(nickname, input(''))
+        message = f' {timestamp()} {nickname}: {input("")}'
         client.send(message.encode('ascii'))
 
 
